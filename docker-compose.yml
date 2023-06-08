@@ -1,0 +1,57 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: .
+    volumes:
+      - ./movie_features.parquet:/src/movie_features.parquet
+      - ./src:/src
+    networks:
+      - backend-net
+    depends_on:
+      - elasticsearch
+      # - embeddings-generator
+    stdin_open: true
+    tty: true
+    command: 'sh -c "while ! nc -z elasticsearch 9200; do sleep 1; done && python3 main.py --print-query"'
+  # embeddings-generator:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile-embeddings
+  #   volumes:
+  #     - embeddings_generator:/embeddings_generator'
+  #   ports:
+  #     - 8001:8000
+  #   environment:
+  #     - EMBEDDINGS_GENERATOR_PATH=embeddings_generator
+  #   stdin_open: true
+  #   tty: true
+  #   networks:
+  #     - backend-net
+  elasticsearch:
+    image: elasticsearch:8.6.0
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    networks:
+      - es-net
+      - backend-net
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      discovery.type: "single-node"
+      xpack.security.enabled: "false"
+      cluster.routing.allocation.disk.threshold_enabled: "false"
+  kibana:
+    image: kibana:8.6.0
+    networks:
+      - es-net
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200/"
+    depends_on:
+      - elasticsearch
+volumes:
+  es-data:
+networks:
+  es-net:
+  backend-net:

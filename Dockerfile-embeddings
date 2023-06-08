@@ -1,0 +1,19 @@
+FROM pytorch/pytorch
+
+# Create a working directory
+RUN mkdir /embeddings_generator
+
+WORKDIR /embeddings_generator/
+ADD requirements-embeddings.txt /embeddings_generator/
+
+RUN apt-get update && apt-get install git -y
+RUN pip3 install pip -U
+RUN pip3 install -r requirements-embeddings.txt
+
+# Install whisper and ffmpeg
+RUN pip3 install "git+https://github.com/openai/whisper.git"
+RUN apt-get install -y ffmpeg
+
+COPY embeddings_generator   /embeddings_generator/
+
+CMD sh -c "python3 main.py"
