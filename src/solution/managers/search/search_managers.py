@@ -16,8 +16,7 @@ class SearchManager:
         )
         filter_by_genre = Q(
             'match',
-            query='Aventure',
-            field=['genre']
+            genres='Adventure'
         )
         search = search.query("bool", must=[multi_match_query, filter_by_genre])
         return search

@@ -32,7 +32,7 @@ In this section, we will build all the containers required for the workshop and 
 1. Clone the repository to your machine
 
 ```bash
-git clone <complete-with-the-repo>
+git clone git clone git@github.com:xmartlabs/pycon-es-workshop.git
 ```
 
 2. Build the containers using `docker-compose`
@@ -176,7 +176,7 @@ GET workshop-v2/_search
   "size": 20
 }
 
-GET workshop-v1/_search
+GET workshop-v2/_search
 {
   "query": {
     "bool": {
@@ -212,7 +212,7 @@ for r in results:
 
 sm.print_query(query)
 ```
-
+ex
 ### Section 6: Task 2: Modifying the Python query
 
 Lets modify the `execute_traditional_search` introducing a filter by `Adventure` genre.
@@ -282,9 +282,11 @@ Once you've completed that step, we can proceed to execute some queries using th
 
 ```python
 from managers import EmbeddingsManager, EmbeddingTypes
-from managers import ESManager
+from managers import ESManager, SearchManager
 
 em = ESManager('workshop-v3')
+sm = SearchManager()
+
 results, query = sm.execute_knn_search('War', em, EmbeddingTypes.SYMMETRIC)
 for r in results:
   sm.print_result(r)
@@ -295,9 +297,11 @@ You might wonder: wait, can I integrate both approaches? Absolutely! You can sea
 
 ```python
 from managers import EmbeddingsManager, EmbeddingTypes
-from managers import ESManager
+from managers import ESManager, SearchManager
 
 em = ESManager('workshop-v3')
+sm = SearchManager()
+
 results, query = sm.execute_hybrid_search('War', em, EmbeddingTypes.SYMMETRIC)
 for r in results:
   sm.print_result(r)

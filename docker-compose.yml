@@ -19,7 +19,7 @@ services:
   #     context: .
   #     dockerfile: Dockerfile-embeddings
   #   volumes:
-  #     - embeddings_generator:/embeddings_generator'
+  #     - ./embeddings_generator/embeddings_generator:/embeddings_generator/embeddings_generator
   #   ports:
   #     - 8001:8000
   #   environment:

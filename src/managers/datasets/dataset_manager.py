@@ -27,11 +27,7 @@ class DatasetManager:
     def _map_movie_into_es(self, movie: Dict) -> Dict:
         return {
             'id': movie['item_id'],
-            'title': movie['title'],
-            'genres': [g for g in movie['genres']],
-            'director': movie['director'],
-            'protagonist': [p for p in movie['protagonist']],
-            'overview': movie['overview']
+            'title': movie['title']
         }
 
     def import_movies_into_es(self, es_manager: ESManager, limit: int = None) -> None:
