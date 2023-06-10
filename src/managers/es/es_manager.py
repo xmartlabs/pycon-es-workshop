@@ -2,7 +2,7 @@ import os
 
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import analyzer, DenseVector, Document, Index, \
-    Text, Keyword, token_filter, MetaField, Search
+    Text, Keyword, token_filter, MetaField
 
 
 ES_DENSE_VECTOR_M_VALUE = os.environ.get('ES_DENSE_VECTOR_M_VALUE', 16)
