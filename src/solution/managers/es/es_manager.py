@@ -17,8 +17,8 @@ class ESManager:
             id = Keyword()
             title = Text(analyzer=text_analyzer)
             genres = Keyword(multi=True)
-            director = Keyword(multi=True)
-            protagonists = Keyword()
+            director = Keyword()
+            protagonists = Keyword(multi=True)
             overview = Text(analyzer=text_analyzer)
 
             class Meta:

@@ -64,7 +64,6 @@ dm = DatasetManager()
 ```python
 ds = dm._get_movies_dataset()
 type(ds)
-len(list(ds))
 first_row = next(ds)
 type(first_row)
 first_row
@@ -90,7 +89,7 @@ em = ESManager('workshop-v1')
 em.create_index()
 ```
 
-3. Verify the index was successfully created using Kibana. In your browser, navigate to http://localhost:5601 and then go to the Dev Tools section. Execute the following commands:
+3. Verify the index was successfully created using Kibana (Remember start the kibana container before doing that `docker-compose up -d kibana`). In your browser, navigate to http://localhost:5601 and then go to the Dev Tools section. Execute the following commands:
    
 ```bash
 GET _cat/indices
@@ -166,7 +165,7 @@ dm = DatasetManager()
 dm.import_movies_into_es(em, 100)
 ``` 
 
-1. Now, let's query some data from the new index. Use the following queries:
+1. Now, let's query some data from the new index. Use the following queries. :
 ```bash
 GET workshop-v2/_search
 {
@@ -212,7 +211,7 @@ for r in results:
 
 sm.print_query(query)
 ```
-ex
+
 ### Section 6: Task 2: Modifying the Python query
 
 Lets modify the `execute_traditional_search` introducing a filter by `Adventure` genre.
